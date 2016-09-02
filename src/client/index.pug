@@ -8,12 +8,12 @@ html
     body
         div#loginbox
             div(style='width:260px;margin:200px auto')= "Input Your Name Id:"
-            br
-            br
-            input#username(type="text" style={width: "180px"}
-                placeholder="Input Your Name Id" name="username")
-            input(type="button" style={ width: "50px"}
-                value="submit" onclick='Chat.usernameSubmit()')
+                br
+                br
+                input#username(type="text" style={width: "180px"}
+                    placeholder="Input Your Name Id" name="username")
+                input(type="button" style={ width: "50px"}
+                    value="submit" onclick='Chat.usernameSubmit()')
         div#chatbox(style={display: "none"})
             div(style="background: #3d3d3d; height:28px; width:100%; font-size:12px")
                 div(style={
@@ -29,7 +29,8 @@ html
                         float:'right'
                         }
                     )
-                        span#showusername= "|"
+                        span#showusername
+                        = ' | '
                         a(href="javascript:void();" onclick="Chat.logout()" style={color:'#fff'})= "logout"
                         
             #doc

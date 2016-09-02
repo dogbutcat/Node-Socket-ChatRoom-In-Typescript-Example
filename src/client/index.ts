@@ -1,122 +1,120 @@
-let wsAddr = 'http://www.raiyku.com';
-
-interface Window{
-    Chat:any;
+interface Window {
+    Chat: any;
 }
+module Chat {
+    let wsAddr = 'http://www.raiyku.com';
 
-interface IOnlineUsers {
-    userid: string;
-    username: string;
-}
 
-interface IChatObj {
-    userid: string;
-    username: string;
-}
-
-interface IOnlineInfo {
-    onlineUsers: IOnlineUsers;
-    onlineCount: number;
-    user: IChatObj;
-}
-
-interface IMessage {
-    username: string;
-    userid: string;
-    content: string;
-}
-
-class Message implements IMessage {
-    username: string = '';
-    userid: string;
-    content: string;
-    constructor() {
-        this.userid = '';
-        this.content = '';
-        this.username = '';
+    interface IOnlineUsers {
+        userid: string;
+        username: string;
     }
 
-}
-
-class ChatObj implements IChatObj {
-    userid: string;
-    username: string;
-    constructor() {
+    interface IChatObj {
+        userid: string;
+        username: string;
     }
-}
 
-class Chat {
-    static msgObj = document.getElementById('message');
-    static chatObj = new ChatObj();;
-    static socket = io.connect(wsAddr);
+    interface IOnlineInfo {
+        onlineUsers: IOnlineUsers;
+        onlineCount: number;
+        user: IChatObj;
+    }
 
-    constructor(){}
+    interface IMessage {
+        username: string;
+        userid: string;
+        content: string;
+    }
+
+    class Message implements IMessage {
+        username: string = '';
+        userid: string;
+        content: string;
+        constructor() {
+            this.userid = '';
+            this.content = '';
+            this.username = '';
+        }
+
+    }
+
+    class ChatObj implements IChatObj {
+        userid: string;
+        username: string;
+        constructor() {
+        }
+    }
+
+    let msgObj = document.getElementById('message');
+    let chatObj = new ChatObj();;
+    let socket = io.connect(wsAddr);
 
     /**
      * usernameSubmit
      */
-    public usernameSubmit() {
+    export function usernameSubmit() {
         var username = (<HTMLInputElement>document.getElementById('username')).value;
-        if(username){
-            (<HTMLInputElement>document.getElementById('username')).value='';
+        if (username) {
+            (<HTMLInputElement>document.getElementById('username')).value = '';
             document.getElementById('loginbox').style.display = 'none';
             document.getElementById('chatbox').style.display = 'block';
-            this.init(username);
+            init(username);
         }
     }
 
-    public submit(){
+    export function submit() {
         var contentHtml = <HTMLInputElement>document.getElementById('content');
         var content = contentHtml.value;
-        if(content){
+        if (content) {
             var message = new Message();
-            message.userid= Chat.chatObj.userid;
-            message.username = Chat.chatObj.username;
+            message.userid = chatObj.userid;
+            message.username = chatObj.username;
             message.content = content;
-            Chat.socket.emit('message',message);
+            socket.emit('message', message);
             contentHtml.value = '';
         }
     }
 
-    public logout(){
+    export function logout() {
         location.reload();
     }
 
-    private init(userName) {
-        Chat.chatObj.userid = this.genUid();
-        Chat.chatObj.username = userName;
+    function init(userName) {
+        chatObj.userid = genUid();
+        chatObj.username = userName;
 
-        document.getElementById('showusername').innerHTML = Chat.chatObj.username;
-        this.scrollToBottom(Chat.msgObj);
+        document.getElementById('showusername').innerHTML = chatObj.username;
+        scrollToBottom(msgObj);
 
-        Chat.socket.emit('login', Chat.chatObj);
+        socket.emit('login', chatObj);
 
-        Chat.socket.on('login', (o) => { this.updateSysMsg(o, 'login') });
+        socket.on('login', (o) => { updateSysMsg(o, 'login') });
 
-        Chat.socket.on('logout', (o) => { this.updateSysMsg(o, 'logout') }); // UnUsed
+        socket.on('logout', (o) => { updateSysMsg(o, 'logout') }); // UnUsed
 
-        Chat.socket.on('message', (o: IMessage) => {
-            var isself = (o.userid == Chat.chatObj.userid) ? true : false;
+        socket.on('message', (o: IMessage) => {
+            var isself = (o.userid == chatObj.userid) ? true : false;
             var contentDiv = '<div>' + o.content + "</div>";
             var usernameDiv = '<span>' + o.username + '</span>';
 
             var section = document.createElement('section');
             isself ? (section.className = 'user', section.innerHTML = contentDiv + usernameDiv)
                 : (section.className = 'service', section.innerHTML = usernameDiv + contentDiv);
-            Chat.msgObj.appendChild(section);
-            this.scrollToBottom(Chat.msgObj);
+            msgObj.appendChild(section);
+            scrollToBottom(msgObj);
         })
     }
 
-    private genUid() {
-        return new Date() + '' + Math.floor(Math.random() * 1899 + 100);
+    function genUid() {
+        return new Date().toString() + Math.floor(Math.random() * 1899 + 100);
     }
 
-    private scrollToBottom(obj: HTMLElement) {
+    function scrollToBottom(obj: HTMLElement) {
         scrollTo(0, obj.clientHeight);
     }
 
-    private updateSysMsg(obj: IOnlineInfo, action) {
+    function updateSysMsg(obj: IOnlineInfo, action) {
         var onlineUsers = obj.onlineUsers;
         var onlineCount = obj.onlineCount;
         var user = obj.user;
@@ -124,7 +122,7 @@ class Chat {
         var userhtml = '';
         var count = 0;
         for (var key in onlineUsers) {
-            ++count ? (userhtml += '') : (userhtml += ',');
+            count++ ? (userhtml += ',') : (userhtml += '');
             userhtml += onlineUsers[key];
         }
 
@@ -138,9 +136,9 @@ class Chat {
         var section = document.createElement('section');
         section.className = 'system J-mjrlinkWrap J-cutMsg';
         section.innerHTML = html;
-        Chat.msgObj.appendChild(section);
-        this.scrollToBottom(Chat.msgObj);
+        msgObj.appendChild(section);
+        scrollToBottom(msgObj);
     }
 }
 
-window.Chat = window.Chat|| new Chat();
+window.Chat = window.Chat || Chat;
