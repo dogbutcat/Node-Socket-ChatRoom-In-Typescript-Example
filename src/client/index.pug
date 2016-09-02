@@ -42,5 +42,9 @@ html
                             input#content(type="text" maxlength="140" placeholder="Please input Message to Send" name="content")
                         .action
                             button#mjr_send(onclick="Chat.submit()") Submit
-    script
-        include ./js/index.js
+    //- Direct search files from target Path to inject the content to template file directly
+    //- script
+    //-     include ./js/index.js 
+
+    //- Below is mean to find files from static resources while used express.static in Express 4.x
+    script(src="/js/index.js")
