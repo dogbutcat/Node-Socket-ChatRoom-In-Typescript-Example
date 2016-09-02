@@ -141,4 +141,13 @@ module Chat {
     }
 }
 
+document.getElementById('content').onkeydown = (e)=>{
+    if(e.keyCode===13 && e.ctrlKey)
+        Chat.submit();
+}
+
+document.getElementById('username').onkeydown = (e)=>{
+    e.keyCode===13?Chat.usernameSubmit():null;
+}
+
 window.Chat = window.Chat || Chat;
