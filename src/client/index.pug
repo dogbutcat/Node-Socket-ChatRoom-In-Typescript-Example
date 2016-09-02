@@ -43,8 +43,8 @@ html
                         .action
                             button#mjr_send(onclick="Chat.submit()") Submit
     //- Direct search files from target Path to inject the content to template file directly
-    //- script
-    //-     include ./js/index.js 
+    script
+        include ../../build/client/js/index.js 
 
     //- Below is mean to find files from static resources while used express.static in Express 4.x
-    script(src="/js/index.js")
+    //- script(src="/js/index.js")

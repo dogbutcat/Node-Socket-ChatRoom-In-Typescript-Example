@@ -12,7 +12,7 @@ gulp.task('webpack', ['clean','client'], () => {
 })
 
 gulp.task('clean', () => {
-    var ret = del.sync(['./build/', './src/client/js']);
+    var ret = del.sync(['./build/']);
     console.info(ret);
 })
 

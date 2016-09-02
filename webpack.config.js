@@ -2,6 +2,9 @@ var extend = require('extend'),
     fs = require('fs'),
     webpack = require('webpack');
 
+/**
+ * This part is to Deal With Backend App with webpack refer = http://jlongster.com/Backend-Apps-with-Webpack--Part-I#Getting-Started
+ */
 var nodeModules = {};
 fs.readdirSync('node_modules')
   .filter(function(x) {
@@ -47,13 +50,14 @@ var clientConfig = extend({}, commonConfig, {
     entry: './src/client/index.ts',
     output: {
         filename: 'index.js',
-        path: './src/client/js'
+        path: './build/client/js'
     },
     ts:{
         compilerOptions:{
             target:"es5"
         }
     },
+    devtool: 'eval-source-map',    
     target: 'web'
 })
 
