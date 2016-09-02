@@ -1,0 +1,45 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        title Chat Room
+        link(href="/style.css", rel="stylesheet")
+        script(src="/socket.io/socket.io.js")
+    body
+        div#loginbox
+            div(style='width:260px;margin:200px auto')= "Input Your Name Id:"
+            br
+            br
+            input#username(type="text" style={width: "180px"}
+                placeholder="Input Your Name Id" name="username")
+            input(type="button" style={ width: "50px"}
+                value="submit" onclick='Chat.usernameSubmit()')
+        div#chatbox(style={display: "none"})
+            div(style="background: #3d3d3d; height:28px; width:100%; font-size:12px")
+                div(style={
+                    'line-height':'28px',
+                    color:'#fff'}
+                )
+                    span(style={
+                        "text-align":'left',
+                        'margin-left':'10px'}
+                    )= "Nameless Chat Room"
+                    span(style={
+                        'margin-right':'10px',
+                        float:'right'
+                        }
+                    )
+                        span#showusername= "|"
+                        a(href="javascript:void();" onclick="Chat.logout()" style={color:'#fff'})= "logout"
+                        
+            #doc
+                #chat
+                    #message.message
+                        #onlinecount(style={'margin-top':'10px','margin-left':'10px',background:'#EFEFF4','font-size':'12px',color:'#666'})
+                    .input-box
+                        .input
+                            input#content(type="text" maxlength="140" placeholder="Please input Message to Send" name="content")
+                        .action
+                            button#mjr_send(onclick="Chat.submit()") Submit
+    script
+        include ./js/index.js

@@ -1,0 +1,19 @@
+{
+  "name": "node-socket-livechat",
+  "dependencies": {},
+  "globalDependencies": {
+    "del": "registry:dt/del#2.2.0+20160317120654",
+    "ejs": "registry:dt/ejs#0.0.0+20160317120654",
+    "express": "registry:dt/express#4.0.0+20160708185218",
+    "express-serve-static-core": "registry:dt/express-serve-static-core#4.0.0+20160819131900",
+    "extend": "registry:dt/extend#2.0.0+20160316155526",
+    "gulp": "registry:dt/gulp#3.8.0+20160724062653",
+    "lodash": "registry:dt/lodash#4.14.0+20160817155621",
+    "node": "registry:dt/node#6.0.0+20160826120425",
+    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157",
+    "socket.io": "registry:dt/socket.io#1.4.4+20160317120654",
+    "socket.io-client": "registry:dt/socket.io-client#1.4.4+20160317120654",
+    "uglify-js": "registry:dt/uglify-js#2.6.1+20160316155526",
+    "webpack": "registry:dt/webpack#1.12.9+20160724112410"
+  }
+}
