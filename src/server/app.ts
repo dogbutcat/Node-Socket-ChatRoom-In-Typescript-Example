@@ -24,7 +24,7 @@ interface socketClient extends SocketIO.Socket {
 
 app.set('view engine', 'pug');
 app.set('views', './src/client');
-app.use(express.static('./client'));
+app.use(express.static('./public'));
 app.use('/', (req, res) => {
     res.render('index');
 })

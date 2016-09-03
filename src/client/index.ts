@@ -2,7 +2,7 @@ interface Window {
     Chat: any;
 }
 module Chat {
-    let wsAddr = 'http://www.raiyku.com';
+    let wsAddr = '/';
 
 
     interface IOnlineUsers {
